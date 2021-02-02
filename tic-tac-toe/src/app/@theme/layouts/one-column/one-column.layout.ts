@@ -1,0 +1,24 @@
+import { Component } from '@angular/core';;
+
+@Component({
+  selector: 'ngx-one-column-layout',
+  styleUrls: ['./one-column.layout.scss'],
+  template: `
+    <nb-layout>
+      <nb-layout-header fixed>
+        <ngx-header></ngx-header>
+      </nb-layout-header>
+
+      <nb-layout-column>
+        Column layout
+        <router-outlet></router-outlet>
+      </nb-layout-column>
+
+      <nb-layout-footer fixed>
+        <ngx-footer></ngx-footer>
+      </nb-layout-footer>
+    </nb-layout>
+  `,
+})
+export class OneColumnLayoutComponent {
+}
