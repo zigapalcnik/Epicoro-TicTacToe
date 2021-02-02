@@ -10,7 +10,6 @@ import { Component } from '@angular/core';;
       </nb-layout-header>
 
       <nb-layout-column>
-        Column layout
         <router-outlet></router-outlet>
       </nb-layout-column>
 
