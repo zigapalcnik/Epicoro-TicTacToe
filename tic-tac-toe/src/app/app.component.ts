@@ -3,12 +3,15 @@ import { LoggerFactory } from './@core/log/logger-factory';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: `
+    <ngx-one-column-layout>
+      <router-outlet></router-outlet>
+    </ngx-one-column-layout>
+  `,
 })
 export class AppComponent {
   private static logger = LoggerFactory.getLogger(AppComponent.name);
-  title = 'tic-tac-toe';
+
   constructor() {
     AppComponent.logger.info('LOGGER TEST');
   }
