@@ -7,6 +7,7 @@ import { NbLayoutModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ThemeModule } from './@theme/theme.module';
 import { CoreModule } from './@core/core.module';
+import { PagesModule } from './@pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CoreModule } from './@core/core.module';
     ThemeModule.forRoot(),
     CoreModule,
     NbLayoutModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
+    PagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
