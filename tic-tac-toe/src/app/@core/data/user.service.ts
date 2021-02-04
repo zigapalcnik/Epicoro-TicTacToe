@@ -24,6 +24,7 @@ export class UserService {
         .add(user)
         .then(
           res => {
+            localStorage.setItem('currentUser', JSON.stringify(user));
             UserService.logger.info(`User ${ user.username } registered`);
           },
           err => {

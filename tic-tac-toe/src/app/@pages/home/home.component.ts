@@ -20,7 +20,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.user?.id) {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (user) {
+      this.user = user as User;
+    } else {
       this.createUserDialog();
     }
   }
