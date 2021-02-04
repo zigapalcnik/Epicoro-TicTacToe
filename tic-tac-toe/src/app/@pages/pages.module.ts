@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NbMenuModule } from '@nebular/theme';
+import { NbAccordionModule, NbMenuModule } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { HomeComponent } from './home/home.component';
@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
   imports: [
     ThemeModule,
     NbMenuModule,
+    NbAccordionModule,
   ],
   declarations: [
     HomeComponent

@@ -12,7 +12,7 @@ import { LoggerFactory } from '../../@core/log/logger-factory';
 export class HomeComponent implements OnInit {
   private static logger = LoggerFactory.getLogger(HomeComponent.name);
 
-  username: string;
+  username: string = 'New user';
   constructor(private readonly dialogService: NbDialogService) { }
 
   ngOnInit(): void {
@@ -24,9 +24,14 @@ export class HomeComponent implements OnInit {
     }).onClose
       .pipe(take(1))
       .subscribe((result: string) => {
-        this.username = result;
+        if (result) {
+          this.username = result;
+        }
         HomeComponent.logger.info(this.username, 'Username test');
       });
   }
 
+  newGame(): void {
+
+  }
 }
