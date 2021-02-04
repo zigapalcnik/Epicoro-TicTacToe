@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { CreateNewUserComponent } from '../../@theme/components/create-new-user/create-new-user.component';
 import { take } from 'rxjs/operators';
+import { v4 as uuidv4 } from 'uuid';
 import { LoggerFactory } from '../../@core/log/logger-factory';
+import { User, UserService } from '../../@core/data/user.service';
 
 @Component({
   selector: 'app-home',
@@ -11,27 +13,31 @@ import { LoggerFactory } from '../../@core/log/logger-factory';
 })
 export class HomeComponent implements OnInit {
   private static logger = LoggerFactory.getLogger(HomeComponent.name);
+  user: User = new User();
 
-  username: string = 'New user';
-  constructor(private readonly dialogService: NbDialogService) { }
+  constructor(private readonly dialogService: NbDialogService,
+              private readonly userService: UserService) {
+  }
 
   ngOnInit(): void {
-    this.createUserDialog();
+    if (!this.user?.id) {
+      this.createUserDialog();
+    }
   }
 
   createUserDialog(): void {
-    this.dialogService.open(CreateNewUserComponent, {
-    }).onClose
+    this.dialogService.open(CreateNewUserComponent, {}).onClose
       .pipe(take(1))
       .subscribe((result: string) => {
         if (result) {
-          this.username = result;
+          this.user.username = result;
+          this.userService.createNew({ id: uuidv4(), username: result }).then(r => {
+            // Stop loading the page.
+          });
         }
-        HomeComponent.logger.info(this.username, 'Username test');
       });
   }
 
   newGame(): void {
-
   }
 }
