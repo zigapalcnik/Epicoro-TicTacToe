@@ -4,7 +4,7 @@
     <nb-card>
       <nb-card-header>
         <div class="d-flex justify-content-between">
-          <nb-user [name]="user.username"></nb-user>
+          <nb-user [name]="user?.username ? user.username : 'New User'"></nb-user>
           <button nbButton (click)="newGame()">Start new game</button>
         </div>
       </nb-card-header>

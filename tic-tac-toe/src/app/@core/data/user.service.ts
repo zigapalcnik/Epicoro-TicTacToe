@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LoggerFactory } from '../log/logger-factory';
+import { v4 as uuidv4 } from 'uuid';
 
 export class User {
   id: string;
   username: string;
   constructor() {
+    this.id = uuidv4()
     this.username = 'New user';
   }
 }

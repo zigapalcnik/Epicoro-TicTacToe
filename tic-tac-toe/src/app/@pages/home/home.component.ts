@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { CreateNewUserComponent } from '../../@theme/components/create-new-user/create-new-user.component';
 import { take } from 'rxjs/operators';
-import { v4 as uuidv4 } from 'uuid';
 import { LoggerFactory } from '../../@core/log/logger-factory';
 import { User, UserService } from '../../@core/data/user.service';
 
@@ -13,7 +12,7 @@ import { User, UserService } from '../../@core/data/user.service';
 })
 export class HomeComponent implements OnInit {
   private static logger = LoggerFactory.getLogger(HomeComponent.name);
-  user: User = new User();
+  user: User
 
   constructor(private readonly dialogService: NbDialogService,
               private readonly userService: UserService) {
@@ -33,8 +32,9 @@ export class HomeComponent implements OnInit {
       .pipe(take(1))
       .subscribe((result: string) => {
         if (result) {
+          this.user = new User();
           this.user.username = result;
-          this.userService.createNew({ id: uuidv4(), username: result }).then(r => {
+          this.userService.createNew({ ...this.user }).then(r => {
             // Stop loading the page.
           });
         }
