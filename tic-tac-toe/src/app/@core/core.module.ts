@@ -1,8 +1,10 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { throwIfAlreadyLoaded } from './module-import-guard';
+import { DataModule } from './data/data.module';
 
 @NgModule({
   imports: [
+    DataModule,
   ],
   exports: [
   ],

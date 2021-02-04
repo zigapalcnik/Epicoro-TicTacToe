@@ -8,6 +8,9 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ThemeModule } from './@theme/theme.module';
 import { CoreModule } from './@core/core.module';
 import { PagesModule } from './@pages/pages.module';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,9 @@ import { PagesModule } from './@pages/pages.module';
     CoreModule,
     NbLayoutModule,
     NbEvaIconsModule,
-    PagesModule
+    PagesModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
