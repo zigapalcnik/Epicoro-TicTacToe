@@ -8,8 +8,8 @@ import {
   NbActionsModule,
   NbButtonModule,
   NbCardModule,
-  NbContextMenuModule,
-  NbIconModule,
+  NbContextMenuModule, NbDialogModule,
+  NbIconModule, NbInputModule,
   NbLayoutModule,
   NbThemeModule,
   NbUserModule
@@ -17,6 +17,7 @@ import {
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { OneColumnLayoutComponent } from './layouts/one-column/one-column.layout';
+import { CreateNewUserComponent } from './components/create-new-user/create-new-user.component';
 
 
 const BASE_MODULES = [
@@ -27,12 +28,14 @@ const BASE_MODULES = [
 
 const NB_MODULES = [
   NbCardModule,
+  NbDialogModule.forRoot(),
   NbLayoutModule,
   NbIconModule,
   NbActionsModule,
   NbUserModule,
   NbContextMenuModule,
-  NbButtonModule
+  NbButtonModule,
+  NbInputModule
 ];
 
 const MODULES = [];
@@ -40,7 +43,8 @@ const MODULES = [];
 const COMPONENTS = [
   HeaderComponent,
   FooterComponent,
-  OneColumnLayoutComponent
+  OneColumnLayoutComponent,
+  CreateNewUserComponent
 ];
 
 const PIPES = [];
@@ -48,8 +52,10 @@ const PIPES = [];
 @NgModule({
   imports: [...BASE_MODULES, ...NB_MODULES, ...MODULES],
   exports: [...BASE_MODULES, ...NB_MODULES, ...MODULES, ...COMPONENTS, ...PIPES],
-  declarations: [...COMPONENTS, ...PIPES],
-  entryComponents: [],
+  declarations: [...COMPONENTS, ...PIPES ],
+  entryComponents: [
+    CreateNewUserComponent
+  ],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders<ThemeModule> {
