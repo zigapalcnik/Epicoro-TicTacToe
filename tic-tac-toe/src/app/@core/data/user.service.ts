@@ -19,6 +19,11 @@ export class UserService {
   constructor(private db: AngularFirestore) {
   }
 
+  currentUser(): User | null {
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return user ? user as User : null;
+  }
+
   createNew(user: User): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.db
