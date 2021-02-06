@@ -3,6 +3,7 @@ import { NbAccordionModule, NbMenuModule } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { HomeComponent } from './home/home.component';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { HomeComponent } from './home/home.component';
     NbAccordionModule,
   ],
   declarations: [
-    HomeComponent
+    HomeComponent,
+    GameComponent
   ],
 })
 export class PagesModule {

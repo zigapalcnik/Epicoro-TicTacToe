@@ -4,6 +4,7 @@ import { CreateNewUserComponent } from '../../@theme/components/create-new-user/
 import { take } from 'rxjs/operators';
 import { LoggerFactory } from '../../@core/log/logger-factory';
 import { User, UserService } from '../../@core/data/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
   user: User
 
   constructor(private readonly dialogService: NbDialogService,
-              private readonly userService: UserService) {
+              private readonly userService: UserService,
+              private readonly router: Router) {
   }
 
   ngOnInit(): void {
@@ -42,5 +44,7 @@ export class HomeComponent implements OnInit {
   }
 
   newGame(): void {
+    this.router.navigate([`/game/MPqENqNGZ7I3Rc8kt0RO`]);
+    // this.router.navigate([`/game/${id}`]);
   }
 }
