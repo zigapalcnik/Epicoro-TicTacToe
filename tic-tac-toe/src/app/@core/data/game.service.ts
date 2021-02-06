@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { LoggerFactory } from '../log/logger-factory';
 import { Observable } from 'rxjs';
 import { User } from './user.service';
+import { PlayingSign } from '../../@pages/game/game.component';
 
 export class GameBoard {
   cellValue: string[][];
@@ -36,7 +37,7 @@ export class GameService {
     initialGameStatus.row0 = initialGame.cellValue[0];
     initialGameStatus.row1 = initialGame.cellValue[1];
     initialGameStatus.row2 = initialGame.cellValue[2];
-    initialGameStatus.currentPlayer = 'X';
+    initialGameStatus.currentPlayer = PlayingSign.X;
     initialGameStatus.playerX = firstUser;
 
     const gameData = JSON.parse(JSON.stringify(initialGameStatus));
@@ -54,7 +55,7 @@ export class GameService {
     gameStatus.row2 = game.cellValue[2];
 
     const gameData = JSON.parse(JSON.stringify(gameStatus));
-    return this.db.doc('GameStatus/' + gameId).update({...gameData});
+    return this.db.doc('GameStatus/' + gameId).update({ ...gameData });
   }
 
   fetchGameStatus(gameId: string): Observable<GameStatus> {

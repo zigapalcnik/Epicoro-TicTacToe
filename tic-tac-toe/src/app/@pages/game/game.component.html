@@ -16,7 +16,7 @@
             <div class="game-board">
               <div *ngFor="let row of gameBoard">
                 <button *ngFor="let col of gameBoard" class="btn btn-light sqaure"
-                        (click)="SetCellValue(row,col)">{{game.cellValue[row][col]}}</button>
+                        (click)="setCellValue(row,col)">{{game.cellValue[row][col]}}</button>
               </div>
             </div>
           </div>

@@ -3,6 +3,11 @@ import { GameBoard, GameService, GameStatus } from '../../@core/data/game.servic
 import { ActivatedRoute, Router } from '@angular/router';
 import { User, UserService } from '../../@core/data/user.service';
 
+export enum PlayingSign{
+  X = 'X',
+  O = 'O',
+}
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -32,7 +37,7 @@ export class GameComponent implements OnInit {
   get userOnMove(): string {
     let username = '';
     if (this.gameStatus.playerO && this.gameStatus.playerX) {
-      if (this.gameStatus.currentPlayer === 'X') {
+      if (this.gameStatus.currentPlayer === PlayingSign.X) {
         username = this.gameStatus.playerX.username;
       } else {
         username = this.gameStatus.playerX.username;
@@ -70,14 +75,14 @@ export class GameComponent implements OnInit {
       this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
     } else if (this.gameStatus.playerX && this.gameStatus.playerO) {
       if (this.gameStatus.playerX.id === this.currentPlayer.id) {
-        this.playerRole = 'X'
+        this.playerRole = PlayingSign.X;
       } else {
-        this.playerRole = 'O'
+        this.playerRole = PlayingSign.O;
       }
     }
   }
 
-  SetCellValue(row: number, col: number) {
+  setCellValue(row: number, col: number) {
     if (!this.win) {
       if (!(this.gameStatus.playerO && this.gameStatus.playerX)) {
         alert('Wait of another player');
@@ -97,11 +102,11 @@ export class GameComponent implements OnInit {
     this.game.cellValue[1] = this.gameStatus.row1;
     this.game.cellValue[2] = this.gameStatus.row2;
 
-    this.win = this.gameWon(this.game);
+    this.win = this.isGameWon(this.game);
     this.setPlayerResponsibleForNextMove();
 
     if (this.win) {
-      if (this.gameStatus?.currentPlayer === 'X') {
+      if (this.gameStatus?.currentPlayer === PlayingSign.X) {
         this.winner = this.gameStatus.playerX.username;
       } else {
         this.winner = this.gameStatus.playerX.username;
@@ -117,9 +122,9 @@ export class GameComponent implements OnInit {
     }
     if (!this.win) {
       if (sum % 2 == 0) {
-        this.gameStatus.currentPlayer = 'X';
+        this.gameStatus.currentPlayer = PlayingSign.X;
       } else {
-        this.gameStatus.currentPlayer = 'O';
+        this.gameStatus.currentPlayer = PlayingSign.O;
       }
       this.gameFinished = sum === 9;
     }
@@ -134,7 +139,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  gameWon(game: GameBoard): boolean {
+  isGameWon(game: GameBoard): boolean {
     let win = false;
     for (let i = 0; i < 3; i++) {
       // Check for winning on row
