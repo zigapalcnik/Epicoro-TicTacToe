@@ -42,32 +42,39 @@ export class GameComponent implements OnInit {
   }
 
   get opponentUsername(): string {
-    return this.currentPlayer.id === this.gameStatus.playerX?.id ? this.gameStatus.playerO?.username : this.gameStatus.playerX?.username
+    return this.currentPlayer.id === this.gameStatus.playerX?.id ? this.gameStatus.playerO?.username : this.gameStatus.playerX?.username;
   }
 
   ngOnInit(): void {
     this.game = this.service.setArray();
     this.setCurrentPlayer();
-    this.setPlayerResponsibleForNextMove()
+    this.setPlayerResponsibleForNextMove();
+
     this.service.fetchGameStatus(this.gameId)
       .subscribe((result: GameStatus) => {
         this.gameStatus = result;
         this.setBoard();
-        if (!this.gameStatus.playerX && (this.gameStatus?.playerO.id != this.currentPlayer.id)) {
-          this.gameStatus.playerX = this.currentPlayer
-          this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
-        } else if (!this.gameStatus.playerO && (this.gameStatus?.playerX.id != this.currentPlayer.id)) {
-          this.gameStatus.playerO = this.currentPlayer;
-          this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
-        } else if (this.gameStatus.playerX && this.gameStatus.playerO) {
-          if (this.gameStatus.playerX.id === this.currentPlayer.id) {
-            this.playerRole = 'X'
-          } else {
-            this.playerRole = 'O'
-          }
+        if (!this.gameFinished) {
+          this.setPlayersAndCurrentRole();
         }
       });
 
+  }
+
+  setPlayersAndCurrentRole() {
+    if (!this.gameStatus.playerX && (this.gameStatus?.playerO.id != this.currentPlayer.id)) {
+      this.gameStatus.playerX = this.currentPlayer;
+      this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
+    } else if (!this.gameStatus.playerO && (this.gameStatus?.playerX.id != this.currentPlayer.id)) {
+      this.gameStatus.playerO = this.currentPlayer;
+      this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
+    } else if (this.gameStatus.playerX && this.gameStatus.playerO) {
+      if (this.gameStatus.playerX.id === this.currentPlayer.id) {
+        this.playerRole = 'X'
+      } else {
+        this.playerRole = 'O'
+      }
+    }
   }
 
   SetCellValue(row: number, col: number) {
@@ -90,11 +97,11 @@ export class GameComponent implements OnInit {
     this.game.cellValue[1] = this.gameStatus.row1;
     this.game.cellValue[2] = this.gameStatus.row2;
 
-    this.win = this.GameWon(this.game);
+    this.win = this.gameWon(this.game);
     this.setPlayerResponsibleForNextMove();
 
     if (this.win) {
-      if (this.gameStatus.currentPlayer === 'X') {
+      if (this.gameStatus?.currentPlayer === 'X') {
         this.winner = this.gameStatus.playerX.username;
       } else {
         this.winner = this.gameStatus.playerX.username;
@@ -127,7 +134,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  GameWon(game: GameBoard): boolean {
+  gameWon(game: GameBoard): boolean {
     let win = false;
     for (let i = 0; i < 3; i++) {
       // Check for winning on row
