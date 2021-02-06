@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { LoggerFactory } from '../../../@core/log/logger-factory';
 
 @Component({
-  selector: 'ngx-header',
+  selector: 'app-header',
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {

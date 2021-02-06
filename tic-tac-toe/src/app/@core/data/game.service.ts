@@ -35,7 +35,7 @@ export class GameService {
     return this.db.collection('GameStatus').add(gameData);
   }
 
-  updateGameStatus(gameId: string, gameStatus: GameStatus, game: GameBoard) {
+  updateGameStatus(gameId: string, gameStatus: GameStatus, game: GameBoard): Promise<any> {
     gameStatus.row0 = game.cellValue[0];
     gameStatus.row1 = game.cellValue[1];
     gameStatus.row2 = game.cellValue[2];

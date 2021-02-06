@@ -4,9 +4,9 @@ import { LoggerFactory } from './@core/log/logger-factory';
 @Component({
   selector: 'app-root',
   template: `
-    <ngx-one-column-layout>
+    <app-one-column-layout>
       <router-outlet></router-outlet>
-    </ngx-one-column-layout>
+    </app-one-column-layout>
   `,
 })
 export class AppComponent {

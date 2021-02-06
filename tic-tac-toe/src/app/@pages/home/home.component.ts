@@ -15,7 +15,7 @@ import { PlayingSign } from '../game/game.component';
 })
 export class HomeComponent implements OnInit {
   private static logger = LoggerFactory.getLogger(HomeComponent.name);
-  user: User
+  user: User;
 
   constructor(private readonly dialogService: NbDialogService,
               private readonly userService: UserService,
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
 
   initializeGameStatus(): GameStatus {
     const initialGame = this.gameService.setArray();
-    const gameStatus = new GameStatus()
+    const gameStatus = new GameStatus();
     gameStatus.row0 = initialGame.cellValue[0];
     gameStatus.row1 = initialGame.cellValue[1];
     gameStatus.row2 = initialGame.cellValue[2];

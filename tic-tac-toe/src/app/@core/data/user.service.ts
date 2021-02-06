@@ -7,7 +7,7 @@ export class User {
   id: string;
   username: string;
   constructor() {
-    this.id = uuidv4()
+    this.id = uuidv4();
     this.username = 'New user';
   }
 }
@@ -35,7 +35,7 @@ export class UserService {
             UserService.logger.info(`User ${ user.username } registered`);
           },
           err => {
-            UserService.logger.info(`Error ${ err } occurred`)
+            UserService.logger.info(`Error ${ err } occurred`);
           });
     });
   }
