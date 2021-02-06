@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
   }
 
   newGame(): void {
-    this.router.navigate(['/game/']);
+    this.router.navigate([`/game/MPqENqNGZ7I3Rc8kt0RO`]);
+    // this.router.navigate([`/game/${id}`]);
   }
 }
