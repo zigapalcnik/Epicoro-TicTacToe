@@ -31,25 +31,11 @@ export class GameService {
   constructor(private db: AngularFirestore) {
   }
 
-  startNewGame(firstUser: User): void {
-    const initialGame = this.setArray();
-    const initialGameStatus = new GameStatus()
-    initialGameStatus.row0 = initialGame.cellValue[0];
-    initialGameStatus.row1 = initialGame.cellValue[1];
-    initialGameStatus.row2 = initialGame.cellValue[2];
-    initialGameStatus.currentPlayer = PlayingSign.X;
-    initialGameStatus.playerX = firstUser;
-
-    const gameData = JSON.parse(JSON.stringify(initialGameStatus));
-    this.db.collection('GameStatus').add(gameData).then(
-      (docref) => {
-        // Will se if wee need this
-        localStorage.setItem('gameId', docref.id);
-      }
-    );
+  startNewGame(gameData): Promise<any> {
+    return this.db.collection('GameStatus').add(gameData);
   }
 
-  updateGameStatus(gameId: string, gameStatus: GameStatus, game: GameBoard) {
+  updateGameStatus(gameId: string, gameStatus: GameStatus, game: GameBoard): Promise<any> {
     gameStatus.row0 = game.cellValue[0];
     gameStatus.row1 = game.cellValue[1];
     gameStatus.row2 = game.cellValue[2];

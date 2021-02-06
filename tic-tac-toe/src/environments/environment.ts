@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyCpPORA3aX5rh10spsXRfAkQJH5xLvjQKI",
-    authDomain: "tictactoe-49a3b.firebaseapp.com",
-    projectId: "tictactoe-49a3b",
-    storageBucket: "tictactoe-49a3b.appspot.com",
-    messagingSenderId: "400343774124",
-    appId: "1:400343774124:web:a3e625b58d185b0c910009"
+    apiKey: 'AIzaSyCpPORA3aX5rh10spsXRfAkQJH5xLvjQKI',
+    authDomain: 'tictactoe-49a3b.firebaseapp.com',
+    projectId: 'tictactoe-49a3b',
+    storageBucket: 'tictactoe-49a3b.appspot.com',
+    messagingSenderId: '400343774124',
+    appId: '1:400343774124:web:a3e625b58d185b0c910009'
   },
 };
 

@@ -5,6 +5,8 @@ import { take } from 'rxjs/operators';
 import { LoggerFactory } from '../../@core/log/logger-factory';
 import { User, UserService } from '../../@core/data/user.service';
 import { Router } from '@angular/router';
+import { GameService, GameStatus } from '../../@core/data/game.service';
+import { PlayingSign } from '../game/game.component';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +15,11 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   private static logger = LoggerFactory.getLogger(HomeComponent.name);
-  user: User
+  user: User;
 
   constructor(private readonly dialogService: NbDialogService,
               private readonly userService: UserService,
+              private readonly gameService: GameService,
               private readonly router: Router) {
   }
 
@@ -44,7 +47,25 @@ export class HomeComponent implements OnInit {
   }
 
   newGame(): void {
-    this.router.navigate([`/game/MPqENqNGZ7I3Rc8kt0RO`]);
-    // this.router.navigate([`/game/${id}`]);
+    const initialGameStatus = this.initializeGameStatus();
+    const gameData = JSON.parse(JSON.stringify(initialGameStatus));
+    this.gameService.startNewGame(gameData).then(docref => {
+      if (docref) {
+        this.router.navigate([`/game/${docref.id}`]);
+      }
+    }, () => {
+      alert('Error while creating new game');
+    });
+  }
+
+  initializeGameStatus(): GameStatus {
+    const initialGame = this.gameService.setArray();
+    const gameStatus = new GameStatus();
+    gameStatus.row0 = initialGame.cellValue[0];
+    gameStatus.row1 = initialGame.cellValue[1];
+    gameStatus.row2 = initialGame.cellValue[2];
+    gameStatus.currentPlayer = PlayingSign.X;
+    gameStatus.playerX = this.user;
+    return gameStatus;
   }
 }

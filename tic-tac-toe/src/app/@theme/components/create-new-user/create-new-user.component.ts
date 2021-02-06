@@ -11,11 +11,11 @@ export class CreateNewUserComponent {
   constructor(protected dialogRef: NbDialogRef<CreateNewUserComponent>) {
   }
 
-  cancel() {
+  cancel(): void {
     this.dialogRef.close(null);
   }
 
-  confirm() {
+  confirm(): void {
     this.dialogRef.close(this.username);
   }
 

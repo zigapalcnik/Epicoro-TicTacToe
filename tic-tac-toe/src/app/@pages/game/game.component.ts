@@ -66,11 +66,11 @@ export class GameComponent implements OnInit {
 
   }
 
-  setPlayersAndCurrentRole() {
-    if (!this.gameStatus.playerX && (this.gameStatus?.playerO.id != this.currentPlayer.id)) {
+  setPlayersAndCurrentRole(): void {
+    if (!this.gameStatus.playerX && (this.gameStatus?.playerO.id !== this.currentPlayer.id)) {
       this.gameStatus.playerX = this.currentPlayer;
       this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
-    } else if (!this.gameStatus.playerO && (this.gameStatus?.playerX.id != this.currentPlayer.id)) {
+    } else if (!this.gameStatus.playerO && (this.gameStatus?.playerX.id !== this.currentPlayer.id)) {
       this.gameStatus.playerO = this.currentPlayer;
       this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
     } else if (this.gameStatus.playerX && this.gameStatus.playerO) {
@@ -82,14 +82,14 @@ export class GameComponent implements OnInit {
     }
   }
 
-  setCellValue(row: number, col: number) {
+  setCellValue(row: number, col: number): void {
     if (!this.win) {
       if (!(this.gameStatus.playerO && this.gameStatus.playerX)) {
         alert('Wait of another player');
       } else {
-        if (this.gameStatus.currentPlayer != this.playerRole) {
+        if (this.gameStatus.currentPlayer !== this.playerRole) {
           alert('The player ' + this.gameStatus.currentPlayer + ' has not yet played.\nPlease wait for your turn.');
-        } else if (this.game.cellValue[row][col] == '') {
+        } else if (this.game.cellValue[row][col] === '') {
           this.game.cellValue[row][col] = this.gameStatus.currentPlayer;
           this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
         }
@@ -97,7 +97,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  setBoard() {
+  setBoard(): void {
     this.game.cellValue[0] = this.gameStatus.row0;
     this.game.cellValue[1] = this.gameStatus.row1;
     this.game.cellValue[2] = this.gameStatus.row2;
@@ -121,7 +121,7 @@ export class GameComponent implements OnInit {
       sum += this.game.cellValue[i].filter(String).length;
     }
     if (!this.win) {
-      if (sum % 2 == 0) {
+      if (sum % 2 === 0) {
         this.gameStatus.currentPlayer = PlayingSign.X;
       } else {
         this.gameStatus.currentPlayer = PlayingSign.O;
@@ -130,7 +130,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  setCurrentPlayer() {
+  setCurrentPlayer(): void {
     const user = this.userService.currentUser();
     if (user) {
       this.currentPlayer = user;
@@ -143,20 +143,28 @@ export class GameComponent implements OnInit {
     let win = false;
     for (let i = 0; i < 3; i++) {
       // Check for winning on row
-      if ((game.cellValue[i][0] == game.cellValue[i][1]) && (game.cellValue[i][1] == game.cellValue[i][2]) && game.cellValue[i][0] != '') {
+      if ((game.cellValue[i][0] === game.cellValue[i][1]) &&
+        (game.cellValue[i][1] === game.cellValue[i][2]) &&
+        game.cellValue[i][0] !== '') {
         win = true;
       }
       // Check for winning on column
-      else if ((game.cellValue[0][i] == game.cellValue[1][i]) && (game.cellValue[1][i] == game.cellValue[2][i]) && game.cellValue[0][i] != '') {
+      else if ((game.cellValue[0][i] === game.cellValue[1][i]) &&
+        (game.cellValue[1][i] === game.cellValue[2][i]) &&
+        game.cellValue[0][i] !== '') {
         win = true;
       }
     }
 
     // Check for winning on diagonal
-    if ((game.cellValue[0][0] == game.cellValue[1][1]) && (game.cellValue[1][1] == game.cellValue[2][2]) && game.cellValue[0][0] != '') {
+    if ((game.cellValue[0][0] === game.cellValue[1][1]) &&
+      (game.cellValue[1][1] === game.cellValue[2][2]) &&
+      game.cellValue[0][0] !== '') {
       win = true;
 
-    } else if ((game.cellValue[0][2] == game.cellValue[1][1]) && (game.cellValue[1][1] == game.cellValue[2][0]) && game.cellValue[0][2] != '') {
+    } else if ((game.cellValue[0][2] === game.cellValue[1][1]) &&
+      (game.cellValue[1][1] === game.cellValue[2][0]) &&
+      game.cellValue[0][2] !== '') {
       win = true;
     }
 
