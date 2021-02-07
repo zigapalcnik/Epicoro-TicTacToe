@@ -6,7 +6,6 @@ import { LoggerFactory } from '../../@core/log/logger-factory';
 import { User, UserService } from '../../@core/data/user.service';
 import { Router } from '@angular/router';
 import { GameService, GameStatus } from '../../@core/data/game.service';
-import { PlayingSign } from '../game/game.component';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +15,7 @@ import { PlayingSign } from '../game/game.component';
 export class HomeComponent implements OnInit {
   private static logger = LoggerFactory.getLogger(HomeComponent.name);
   user: User;
+  games: GameStatus[] = [];
 
   constructor(private readonly dialogService: NbDialogService,
               private readonly userService: UserService,
@@ -24,12 +24,19 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllGames();
     const user = JSON.parse(localStorage.getItem('currentUser'));
     if (user) {
       this.user = user as User;
     } else {
       this.createUserDialog();
     }
+  }
+
+  get activeGames(): GameStatus[] {
+    return this.games.filter(g => {
+      return g.playerX && g.playerO && !g.finished;
+    });
   }
 
   createUserDialog(): void {
@@ -47,8 +54,8 @@ export class HomeComponent implements OnInit {
   }
 
   newGame(): void {
-    const initialGameStatus = this.initializeGameStatus();
-    const gameData = JSON.parse(JSON.stringify(initialGameStatus));
+    const gameStatus = new GameStatus(this.user);
+    const gameData = JSON.parse(JSON.stringify(gameStatus));
     this.gameService.startNewGame(gameData).then(docref => {
       if (docref) {
         this.router.navigate([`/game/${docref.id}`]);
@@ -58,14 +65,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  initializeGameStatus(): GameStatus {
-    const initialGame = this.gameService.setArray();
-    const gameStatus = new GameStatus();
-    gameStatus.row0 = initialGame.cellValue[0];
-    gameStatus.row1 = initialGame.cellValue[1];
-    gameStatus.row2 = initialGame.cellValue[2];
-    gameStatus.currentPlayer = PlayingSign.X;
-    gameStatus.playerX = this.user;
-    return gameStatus;
+  getAllGames(): void {
+    this.gameService.getAllGames().subscribe(games => {
+      this.games = games;
+    });
   }
 }
