@@ -10,7 +10,7 @@ import { User } from '../../../@core/data/user.service';
 })
 export class GameSectionComponent {
   @Input() game: GameStatus;
-  @Input() currentUser: User
+  @Input() currentUser: User;
   playingSign = PlayingSign;
 
   getXUserName(game: GameStatus): string {
@@ -58,15 +58,15 @@ export class GameSectionComponent {
       // In case its X's turn and we are X we get warning otherwise we get info
       if (this.game.currentPlayerSign === PlayingSign.X) {
         if (this.currentUser.id === this.game.playerX.id) {
-          htmlClass += 'warning'
+          htmlClass += 'warning';
         } else {
-          htmlClass += 'info'
+          htmlClass += 'info';
         }
       } else {
         if (this.currentUser.id === this.game.playerO.id) {
-          htmlClass += 'warning'
+          htmlClass += 'warning';
         } else {
-          htmlClass += 'info'
+          htmlClass += 'info';
         }
       }
     }

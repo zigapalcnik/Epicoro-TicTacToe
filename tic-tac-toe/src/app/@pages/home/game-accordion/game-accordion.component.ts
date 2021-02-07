@@ -10,5 +10,5 @@ import { User } from '../../../@core/data/user.service';
 export class GameAccordionComponent {
   @Input() games: GameStatus[];
   @Input() title: string;
-  @Input() currentUser: User
+  @Input() currentUser: User;
 }
