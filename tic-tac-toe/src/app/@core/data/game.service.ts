@@ -3,7 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { LoggerFactory } from '../log/logger-factory';
 import { Observable } from 'rxjs';
 import { User } from './user.service';
-import { PlayingSign } from '../../@pages/game/game.component';
+import { GameState, PlayingSign } from '../../@pages/game/game.component';
+import { setArray } from '../utils/common';
 
 export class GameBoard {
   cellValue: string[][];
@@ -18,10 +19,23 @@ export class GameStatus {
   row0: string[];
   row1: string[];
   row2: string[];
-  currentPlayer: string;
+
+  currentPlayerSign: string;
+  finished: boolean;
+  gameState: GameState;
 
   playerX: User;
   playerO: User;
+  constructor(user: User) {
+    const initialGame = setArray();
+    this.row0 = initialGame.cellValue[0];
+    this.row1 = initialGame.cellValue[1];
+    this.row2 = initialGame.cellValue[2];
+    this.finished = false;
+    this.gameState = GameState.ACTIVE;
+    this.currentPlayerSign = PlayingSign.X;
+    this.playerX = user;
+  }
 }
 
 @Injectable()
@@ -46,16 +60,5 @@ export class GameService {
 
   fetchGameStatus(gameId: string): Observable<GameStatus> {
     return this.db.doc<GameStatus>('GameStatus/' + gameId).valueChanges();
-  }
-
-  setArray(): GameBoard {
-    const game = new GameBoard();
-    for (let i = 0; i < 3; i++) {
-      game.cellValue[i] = [];
-      for (let j = 0; j < 3; j++) {
-        game.cellValue[i][j] = '';
-      }
-    }
-    return game;
   }
 }
