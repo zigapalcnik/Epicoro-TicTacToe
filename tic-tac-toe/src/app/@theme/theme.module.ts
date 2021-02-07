@@ -4,13 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
   CORPORATE_THEME,
-  DEFAULT_THEME,
+  DEFAULT_THEME, NbAccordionModule,
   NbActionsModule,
   NbButtonModule,
   NbCardModule,
   NbContextMenuModule, NbDialogModule,
   NbIconModule, NbInputModule,
-  NbLayoutModule,
+  NbLayoutModule, NbListModule,
   NbThemeModule,
   NbUserModule
 } from '@nebular/theme';
@@ -35,7 +35,9 @@ const NB_MODULES = [
   NbUserModule,
   NbContextMenuModule,
   NbButtonModule,
-  NbInputModule
+  NbInputModule,
+  NbListModule,
+  NbAccordionModule,
 ];
 
 const MODULES = [];

@@ -30,33 +30,10 @@
             </nb-accordion>
           </div>
           <div class="col-xl-4 col-sm-12 pt-1">
-            <nb-accordion>
-              <nb-accordion-item>
-                <nb-accordion-item-header class="justify-content-center">Active games</nb-accordion-item-header>
-                <nb-accordion-item-body>
-                  <nb-list>
-                    <nb-list-item class="p-1" *ngFor="let game of activeGames" [routerLink]="'game/' + game.id">
-                      <app-game-section [game]="game" [currentUser]="user"></app-game-section>
-                    </nb-list-item>
-                  </nb-list>
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-            </nb-accordion>
+            <app-game-accordion title="Active games" [games]="activeGames" [currentUser]="user"></app-game-accordion>
           </div>
-
           <div class="col-xl-4 col-sm-12 pt-1">
-            <nb-accordion>
-              <nb-accordion-item>
-                <nb-accordion-item-header class="justify-content-center">Finished games</nb-accordion-item-header>
-                <nb-accordion-item-body>
-                  <nb-list>
-                    <nb-list-item class="p-2" *ngFor="let game of finishedGames" [routerLink]="'game/' + game.id">
-                      <app-game-section [game]="game" [currentUser]="user"></app-game-section>
-                    </nb-list-item>
-                  </nb-list>
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-            </nb-accordion>
+            <app-game-accordion title="Finished games" [games]="finishedGames" [currentUser]="user"></app-game-accordion>
           </div>
         </div>
       </nb-card-body>

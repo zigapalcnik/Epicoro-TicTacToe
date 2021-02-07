@@ -8,16 +8,10 @@ import { User } from '../../../@core/data/user.service';
   templateUrl: './game-section.component.html',
   styleUrls: ['./game-section.component.scss']
 })
-export class GameSectionComponent implements OnInit {
+export class GameSectionComponent {
   @Input() game: GameStatus;
   @Input() currentUser: User
   playingSign = PlayingSign;
-
-  constructor() {
-  }
-
-  ngOnInit(): void {
-  }
 
   getXUserName(game: GameStatus): string {
     return `${ game.playerX?.username }`;

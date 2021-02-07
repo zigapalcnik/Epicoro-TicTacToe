@@ -5,6 +5,8 @@ import { ThemeModule } from '../@theme/theme.module';
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { GameSectionComponent } from './home/game-section/game-section.component';
+import { GameAccordionComponent } from './home/game-accordion/game-accordion.component';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   imports: [
@@ -12,11 +14,9 @@ import { GameSectionComponent } from './home/game-section/game-section.component
     NbMenuModule,
     NbAccordionModule,
     NbListModule,
+    HomeModule,
   ],
   declarations: [
-    HomeComponent,
-    GameComponent,
-    GameSectionComponent
   ],
 })
 export class PagesModule {
