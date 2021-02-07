@@ -4,13 +4,17 @@ import { LoggerFactory } from '../log/logger-factory';
 import { Observable } from 'rxjs';
 import { User } from './user.service';
 import { GameState, PlayingSign } from '../../@pages/game/game.component';
-import { setArray } from '../utils/common';
 
 export class GameBoard {
   cellValue: string[][];
 
   constructor() {
-    this.cellValue = [];
+    for (let i = 0; i < 3; i++) {
+      this.cellValue[i] = [];
+      for (let j = 0; j < 3; j++) {
+        this.cellValue[i][j] = '';
+      }
+    }
   }
 }
 
@@ -27,7 +31,7 @@ export class GameStatus {
   playerX: User;
   playerO: User;
   constructor(user: User) {
-    const initialGame = setArray();
+    const initialGame = new GameBoard();
     this.row0 = initialGame.cellValue[0];
     this.row1 = initialGame.cellValue[1];
     this.row2 = initialGame.cellValue[2];
