@@ -57,9 +57,11 @@ export class GameSectionComponent implements OnInit {
 
   getClass(): string {
     let htmlClass = 'p-1 badge badge-';
+    // In case game is finished and we have winner
     if (this.game.gameState === GameState.WINNER) {
       htmlClass += 'success';
     } else {
+      // In case its X's turn and we are X we get warning otherwise we get info
       if (this.game.currentPlayerSign === PlayingSign.X) {
         if (this.currentUser.id === this.game.playerX.id) {
           htmlClass += 'warning'

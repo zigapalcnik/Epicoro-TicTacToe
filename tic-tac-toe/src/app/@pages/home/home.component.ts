@@ -63,14 +63,6 @@ export class HomeComponent implements OnInit {
     return test;
   }
 
-  getXUserName(game: GameStatus): string {
-    return `${game.playerX?.username} - ${PlayingSign.X}`;
-  }
-
-  getYUserName(game: GameStatus): string {
-    return `${game.playerO?.username ?? 'Opponent'} - ${PlayingSign.O}`;
-  }
-
   createUserDialog(): void {
     this.dialogService.open(CreateNewUserComponent, {}).onClose
       .pipe(take(1))
