@@ -4,9 +4,10 @@ import { LoggerFactory } from '../log/logger-factory';
 import { Observable } from 'rxjs';
 import { User } from './user.service';
 import { GameState, PlayingSign } from '../../@pages/game/game.component';
+import { map } from 'rxjs/operators';
 
 export class GameBoard {
-  cellValue: string[][];
+  cellValue: string[][] = [[]];
 
   constructor() {
     for (let i = 0; i < 3; i++) {
@@ -48,6 +49,22 @@ export class GameService {
 
   constructor(private db: AngularFirestore) {
   }
+
+  getAllGames(): Observable<GameStatus[]> {
+    return this.db.collection('GameStatus').snapshotChanges().pipe(map(action => {
+      return action.map(doc => {
+        const id = doc.payload.doc.id;
+        const data = doc.payload.doc.data() as GameStatus;
+        return { id, ...data }
+      });
+    }));
+  }
+
+  //TODO get only games related for that current user.
+  getAllCurrentUserGames() {
+    return this.db.collection('GameStatus', (ref) => ref.where('oPlayer', '!=', null, )).get();
+  }
+
 
   startNewGame(gameData): Promise<any> {
     return this.db.collection('GameStatus').add(gameData);
