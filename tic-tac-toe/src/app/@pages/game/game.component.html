@@ -7,9 +7,9 @@
       </nb-card-header>
       <nb-card-body>
         <div class="d-flex justify-content-center">
-          <h5 *ngIf="win">Player {{winner}} has won the game</h5>
-          <h5 *ngIf="!win && !gameFinished">Turn: {{userOnMove}}</h5>
-          <h5 *ngIf="gameFinished && !win">Game draw</h5>
+          <h5 *ngIf="gameStatus?.gameState === gameState.WINNER">Player {{winner}} has won the game</h5>
+          <h5 *ngIf="gameStatus?.gameState === gameState.ACTIVE">Turn: {{userOnMove}}</h5>
+          <h5 *ngIf="gameStatus?.gameState === gameState.DRAW">Game draw</h5>
         </div>
         <div class="d-flex justify-content-center">
           <div class="game-board-container">
