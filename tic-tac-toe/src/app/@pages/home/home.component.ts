@@ -49,13 +49,15 @@ export class HomeComponent implements OnInit {
 
   get activeGames(): GameStatus[] {
     return this.games?.filter(g => {
-      return g.playerX && g.playerO && g.gameState === GameState.ACTIVE;
+      return g.playerX && g.playerO && g.gameState === GameState.ACTIVE &&
+        (g.playerO?.id === this.user.id || g.playerX?.id === this.user.id);
     });
   }
 
   get finishedGames(): GameStatus[] {
     const test = this.games?.filter(g => {
-      return g.gameState !== GameState.ACTIVE;
+      return g.gameState !== GameState.ACTIVE &&
+        (g.playerO?.id === this.user.id || g.playerX?.id === this.user.id);
     });
     console.log(test);
     return test;

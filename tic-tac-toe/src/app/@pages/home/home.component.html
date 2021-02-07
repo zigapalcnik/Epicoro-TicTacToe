@@ -1,6 +1,5 @@
 <div class="row">
-  <div class="col-md-2 col-sm-1"></div>
-  <div class="col-md-8 col-sm-10">
+  <div class="col-12">
     <nb-card>
       <nb-card-header>
         <div class="d-flex justify-content-between">
@@ -10,30 +9,29 @@
       </nb-card-header>
       <nb-card-body>
         <div class="row">
-          <div class="col-md-4 col-sm-12">
+          <div class="col-xl-4 col-sm-12 pt-1">
             <nb-accordion>
               <nb-accordion-item>
                 <nb-accordion-item-header class="justify-content-center">Open games</nb-accordion-item-header>
                 <nb-accordion-item-body>
                   <nb-list>
                     <nb-list-item class="p-1" *ngFor="let game of openGames" [routerLink]="'game/' + game.id">
-                      <nb-user [name]="game.playerX?.username + ' - X'"></nb-user>
-<!--                      {{ game.playerX?.username }}-->
+                      <nb-user [name]="game.playerX?.username"></nb-user>
+                      <nb-icon icon="close-outline"></nb-icon>
                     </nb-list-item>
                   </nb-list>
                 </nb-accordion-item-body>
               </nb-accordion-item>
             </nb-accordion>
           </div>
-          <div class="col-md-4 col-sm-12">
+          <div class="col-xl-4 col-sm-12 pt-1">
             <nb-accordion>
               <nb-accordion-item>
                 <nb-accordion-item-header class="justify-content-center">Active games</nb-accordion-item-header>
                 <nb-accordion-item-body>
                   <nb-list>
-                    <nb-list-item class="p-1" *ngFor="let game of activeGames">
-                      <nb-user class="pb-1" [name]="game.playerX?.username + ' - X'" ></nb-user>
-                      <nb-user [name]="game.playerO?.username + ' - O'" ></nb-user>
+                    <nb-list-item class="p-1" *ngFor="let game of activeGames" [routerLink]="'game/' + game.id">
+                      <app-game-section [game]="game" [currentUser]="user"></app-game-section>
                     </nb-list-item>
                   </nb-list>
                 </nb-accordion-item-body>
@@ -41,27 +39,14 @@
             </nb-accordion>
           </div>
 
-          <div class="col-md-4 col-sm-12">
+          <div class="col-xl-4 col-sm-12 pt-1">
             <nb-accordion>
               <nb-accordion-item>
                 <nb-accordion-item-header class="justify-content-center">Finished games</nb-accordion-item-header>
                 <nb-accordion-item-body>
                   <nb-list>
-                    <nb-list-item class="p-2" *ngFor="let game of finishedGames">
-                      <div class="align-items-center d-flex justify-content-between pb-3">
-                        <div>
-                          <nb-icon icon="person-outline"></nb-icon>
-                          <span class="p-1">{{getXUserName(game)}}</span>
-                        </div>
-                        <span *ngIf="game.currentPlayerSign === playingSign.X" class="p-1 badge badge-success">Winner</span>
-                      </div>
-                      <div class="align-items-center d-flex justify-content-between pb-2">
-                        <div>
-                          <nb-icon icon="person-outline"></nb-icon>
-                          <span>{{getYUserName(game)}}</span>
-                        </div>
-                        <span *ngIf="game.currentPlayerSign === playingSign.O" class="p-1 badge badge-success">Winner</span>
-                      </div>
+                    <nb-list-item class="p-2" *ngFor="let game of finishedGames" [routerLink]="'game/' + game.id">
+                      <app-game-section [game]="game" [currentUser]="user"></app-game-section>
                     </nb-list-item>
                   </nb-list>
                 </nb-accordion-item-body>
@@ -72,5 +57,4 @@
       </nb-card-body>
     </nb-card>
   </div>
-  <div class="col-md-2 col-sm-10"></div>
 </div>
