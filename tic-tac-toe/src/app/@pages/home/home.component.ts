@@ -6,6 +6,13 @@ import { LoggerFactory } from '../../@core/log/logger-factory';
 import { User, UserService } from '../../@core/data/user.service';
 import { Router } from '@angular/router';
 import { GameService, GameStatus } from '../../@core/data/game.service';
+import { GameState, PlayingSign } from '../game/game.component';
+
+enum GameStatusText {
+  WINNER = 'Winner',
+  TOUR_TURN = 'Your turn',
+  OPPONENT_TURN = 'Opponent turn',
+}
 
 @Component({
   selector: 'app-home',
@@ -14,8 +21,9 @@ import { GameService, GameStatus } from '../../@core/data/game.service';
 })
 export class HomeComponent implements OnInit {
   private static logger = LoggerFactory.getLogger(HomeComponent.name);
+  playingSign = PlayingSign;
   user: User;
-  games: GameStatus[] = [];
+  games: GameStatus[];
 
   constructor(private readonly dialogService: NbDialogService,
               private readonly userService: UserService,
@@ -33,10 +41,32 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  get activeGames(): GameStatus[] {
-    return this.games.filter(g => {
-      return g.playerX && g.playerO && !g.finished;
+  get openGames(): GameStatus[] {
+    return this.games?.filter(g => {
+      return (!g.playerX || !g.playerO) && g.gameState === GameState.ACTIVE;
     });
+  }
+
+  get activeGames(): GameStatus[] {
+    return this.games?.filter(g => {
+      return g.playerX && g.playerO && g.gameState === GameState.ACTIVE;
+    });
+  }
+
+  get finishedGames(): GameStatus[] {
+    const test = this.games?.filter(g => {
+      return g.gameState !== GameState.ACTIVE;
+    });
+    console.log(test);
+    return test;
+  }
+
+  getXUserName(game: GameStatus): string {
+    return `${game.playerX?.username} - ${PlayingSign.X}`;
+  }
+
+  getYUserName(game: GameStatus): string {
+    return `${game.playerO?.username ?? 'Opponent'} - ${PlayingSign.O}`;
   }
 
   createUserDialog(): void {

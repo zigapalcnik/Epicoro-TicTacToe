@@ -13,9 +13,14 @@
           <div class="col-md-4 col-sm-12">
             <nb-accordion>
               <nb-accordion-item>
-                <nb-accordion-item-header>Open games</nb-accordion-item-header>
+                <nb-accordion-item-header class="justify-content-center">Open games</nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  Item Content
+                  <nb-list>
+                    <nb-list-item class="p-1" *ngFor="let game of openGames" [routerLink]="'game/' + game.id">
+                      <nb-user [name]="game.playerX?.username + ' - X'"></nb-user>
+<!--                      {{ game.playerX?.username }}-->
+                    </nb-list-item>
+                  </nb-list>
                 </nb-accordion-item-body>
               </nb-accordion-item>
             </nb-accordion>
@@ -23,9 +28,14 @@
           <div class="col-md-4 col-sm-12">
             <nb-accordion>
               <nb-accordion-item>
-                <nb-accordion-item-header>Active games</nb-accordion-item-header>
+                <nb-accordion-item-header class="justify-content-center">Active games</nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  Item Content
+                  <nb-list>
+                    <nb-list-item class="p-1" *ngFor="let game of activeGames">
+                      <nb-user class="pb-1" [name]="game.playerX?.username + ' - X'" ></nb-user>
+                      <nb-user [name]="game.playerO?.username + ' - O'" ></nb-user>
+                    </nb-list-item>
+                  </nb-list>
                 </nb-accordion-item-body>
               </nb-accordion-item>
             </nb-accordion>
@@ -34,9 +44,26 @@
           <div class="col-md-4 col-sm-12">
             <nb-accordion>
               <nb-accordion-item>
-                <nb-accordion-item-header>Finished games</nb-accordion-item-header>
+                <nb-accordion-item-header class="justify-content-center">Finished games</nb-accordion-item-header>
                 <nb-accordion-item-body>
-                  Item Content
+                  <nb-list>
+                    <nb-list-item class="p-2" *ngFor="let game of finishedGames">
+                      <div class="align-items-center d-flex justify-content-between pb-3">
+                        <div>
+                          <nb-icon icon="person-outline"></nb-icon>
+                          <span class="p-1">{{getXUserName(game)}}</span>
+                        </div>
+                        <span *ngIf="game.currentPlayerSign === playingSign.X" class="p-1 badge badge-success">Winner</span>
+                      </div>
+                      <div class="align-items-center d-flex justify-content-between pb-2">
+                        <div>
+                          <nb-icon icon="person-outline"></nb-icon>
+                          <span>{{getYUserName(game)}}</span>
+                        </div>
+                        <span *ngIf="game.currentPlayerSign === playingSign.O" class="p-1 badge badge-success">Winner</span>
+                      </div>
+                    </nb-list-item>
+                  </nb-list>
                 </nb-accordion-item-body>
               </nb-accordion-item>
             </nb-accordion>

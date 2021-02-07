@@ -1,0 +1,27 @@
+nb-list-item {
+  display: block;
+  cursor: pointer;
+  border-bottom: 0.0625rem solid black;
+  &:first-child {
+    border-top: none;
+  }
+  //&:last-child {
+  //  border-bottom: none;
+  //}
+}
+
+nb-icon {
+  font-size: 1.5rem;
+}
+
+nb-accordion-item-body {
+  background: #edf1f7 !important;
+}
+nb-accordion-item-header {
+  background: #edf1f7 !important;
+  border-bottom: 1px solid black;
+}
+
+//div {
+//  border: 1px solid #edf1f7;
+//}
