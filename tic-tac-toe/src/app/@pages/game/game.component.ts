@@ -86,8 +86,7 @@ export class GameComponent implements OnInit {
       } else {
         if ((this.gameStatus.playerX.id === this.currentPlayer.id) && (this.gameStatus.currentPlayerSign !== PlayingSign.X) ||
           (this.gameStatus.playerO.id === this.currentPlayer.id) && (this.gameStatus.currentPlayerSign !== PlayingSign.O)) {
-          alert(`The player ${ this.opponentUsername } -
-          ${ this.gameStatus.currentPlayerSign } has not yet played yet.\nPlease wait for your turn.`);
+          alert(`The player ${ this.opponentUsername } - ${ this.gameStatus.currentPlayerSign } has not yet played yet.\nPlease wait for your turn.`);
         } else if (this.game.cellValue[row][col] === '') {
           this.game.cellValue[row][col] = this.gameStatus.currentPlayerSign;
           this.updateGameStatus();

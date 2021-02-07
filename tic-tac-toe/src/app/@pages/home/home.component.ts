@@ -8,12 +8,6 @@ import { Router } from '@angular/router';
 import { GameService, GameStatus } from '../../@core/data/game.service';
 import { GameState, PlayingSign } from '../game/game.component';
 
-enum GameStatusText {
-  WINNER = 'Winner',
-  TOUR_TURN = 'Your turn',
-  OPPONENT_TURN = 'Opponent turn',
-}
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -82,7 +76,7 @@ export class HomeComponent implements OnInit {
     const gameData = JSON.parse(JSON.stringify(gameStatus));
     this.gameService.startNewGame(gameData).then(docref => {
       if (docref) {
-        this.router.navigate([`/game/${docref.id}`]);
+        this.router.navigate([`/game/${ docref.id }`]);
       }
     }, () => {
       alert('Error while creating new game');
