@@ -1,0 +1,29 @@
+<nb-accordion>
+  <nb-accordion-item>
+    <nb-accordion-item-header class="justify-content-center">Finished games</nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <nb-list>
+        <nb-list-item *ngFor="let game of games" class="p-1" [routerLink]="'game/' + game.id">
+          <div class="align-items-center d-flex justify-content-between pb-3">
+            <div>
+              <span class="pr-1">{{getXUserName(game)}}</span>
+              <nb-icon icon="close-outline"></nb-icon>
+            </div>
+            <span [class]="getXBadge(game, false)">{{getXBadge(game)}}</span>
+          </div>
+
+          <div class="align-items-center d-flex justify-content-between pb-2">
+            <div>
+              <span class="pr-1">{{getYUserName(game)}}</span>
+              <nb-icon icon="radio-button-off-outline"></nb-icon>
+            </div>
+            <span [class]="getYBadge(game, false)">{{getYBadge(game)}}</span>
+          </div>
+        </nb-list-item>
+        <nb-list-item *ngIf="games?.length === 0">
+          No games available
+        </nb-list-item>
+      </nb-list>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>

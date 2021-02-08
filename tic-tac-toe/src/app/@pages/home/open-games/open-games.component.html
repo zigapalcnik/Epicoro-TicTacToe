@@ -1,0 +1,21 @@
+<nb-accordion>
+  <nb-accordion-item>
+    <nb-accordion-item-header class="justify-content-center">Open games</nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <nb-list>
+        <nb-list-item class="p-1" *ngFor="let game of games" [routerLink]="'game/' + game.id">
+          <div class="align-items-center d-flex justify-content-between pb-3">
+            <div>
+              <span class="pr-1">{{game.playerX?.username}}</span>
+              <nb-icon icon="close-outline"></nb-icon>
+            </div>
+            <span *ngIf="game.playerX?.id !== user.id" class="p-1 badge badge-info">Join game</span>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="align-items-center" *ngIf="games?.length === 0">
+          No games available
+        </nb-list-item>
+      </nb-list>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>

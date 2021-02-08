@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tictactoe-49a3b": {
+      "hosting": {
+        "tic-tac-toe": [
+          "tictactoe-49a3b"
+        ]
+      }
+    }
+  }
+}
