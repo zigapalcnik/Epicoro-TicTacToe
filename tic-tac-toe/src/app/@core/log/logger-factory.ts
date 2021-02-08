@@ -1,7 +1,7 @@
 import { Logger } from './logger';
-import { environment } from '../../../../../../../ZAKI/centralweb/zakicentralweb/src/environments/environment';
 import { NoopLogger } from './loggers/noop-logger';
 import { LogLevel } from './log-level';
+import { environment } from '../../../environments/environment';
 
 /**
  * Logger Factory for creating Logger instances.

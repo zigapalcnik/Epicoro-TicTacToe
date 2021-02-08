@@ -2,7 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { ConsoleLogger } from '../app/@core/log/loggers/console-logger';
+import { LogLevel } from '../app/@core/log/log-level';
+
 export const environment = {
+  logger: ConsoleLogger,
+  logLevel: LogLevel.ALL,
   production: false,
   firebase: {
     apiKey: 'AIzaSyCpPORA3aX5rh10spsXRfAkQJH5xLvjQKI',
