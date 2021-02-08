@@ -49,12 +49,10 @@ export class HomeComponent implements OnInit {
   }
 
   get finishedGames(): GameStatus[] {
-    const test = this.games?.filter(g => {
+    return this.games?.filter(g => {
       return g.gameState !== GameState.ACTIVE &&
         (g.playerO?.id === this.user.id || g.playerX?.id === this.user.id);
     });
-    console.log(test);
-    return test;
   }
 
   createUserDialog(): void {
@@ -72,20 +70,35 @@ export class HomeComponent implements OnInit {
   }
 
   newGame(): void {
-    const gameStatus = new GameStatus(this.user);
-    const gameData = JSON.parse(JSON.stringify(gameStatus));
-    this.gameService.startNewGame(gameData).then(docref => {
-      if (docref) {
-        this.router.navigate([`/game/${ docref.id }`]);
-      }
-    }, () => {
-      alert('Error while creating new game');
-    });
+    if (!this.isUserAlreadyWaitingForGame()) {
+      const gameStatus = new GameStatus(this.user);
+      const gameData = JSON.parse(JSON.stringify(gameStatus));
+      this.gameService.startNewGame(gameData).then(docref => {
+        if (docref) {
+          this.router.navigate([`/game/${ docref.id }`]);
+        }
+      }, () => {
+        alert('Error while creating new game');
+      });
+    } else {
+      alert('You can only be present in one open game at a time ');
+    }
   }
 
   getAllGames(): void {
     this.gameService.getAllGames().subscribe(games => {
       this.games = games;
     });
+  }
+
+  isUserAlreadyWaitingForGame(): boolean {
+    return this.games.filter(g => {
+      if (this.user.id === g.playerX?.id && !g.playerO) {
+        return true;
+      } else if (this.user.id === g.playerO?.id && !g.playerX) {
+        return true;
+      }
+      return false;
+    }).length !== 0;
   }
 }
