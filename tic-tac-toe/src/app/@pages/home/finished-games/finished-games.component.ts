@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { GameStatus } from '../../../@core/data/game.service';
+import { GameState, GameStatus, PlayingSign } from '../../../@core/data/game.service';
 import { User } from '../../../@core/data/user.service';
-import { GameState, PlayingSign } from '../../game/game.component';
 
 @Component({
   selector: 'app-finished-games',

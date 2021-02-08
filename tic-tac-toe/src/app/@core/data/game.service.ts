@@ -3,8 +3,18 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { LoggerFactory } from '../log/logger-factory';
 import { Observable } from 'rxjs';
 import { User } from './user.service';
-import { GameState, PlayingSign } from '../../@pages/game/game.component';
 import { map } from 'rxjs/operators';
+
+export enum PlayingSign {
+  X = 'X',
+  O = 'O',
+}
+
+export enum GameState {
+  ACTIVE,
+  DRAW,
+  WINNER
+}
 
 export class GameBoard {
   cellValue: string[][] = [[]];
@@ -31,6 +41,7 @@ export class GameStatus {
 
   playerX: User;
   playerO: User;
+
   constructor(user: User) {
     const initialGame = new GameBoard();
     this.row0 = initialGame.cellValue[0];
@@ -53,33 +64,33 @@ export class GameService {
   getAllGames(): Observable<GameStatus[]> {
     return this.db.collection('GameStatus').snapshotChanges().pipe(map(action => {
       return action.map(doc => {
-        const id = doc.payload.doc.id;
         const data = doc.payload.doc.data() as GameStatus;
-        return { id, ...data }
+        data.id = doc.payload.doc.id;
+        return { ...data };
       });
     }));
   }
 
   //TODO get only games related for that current user.
   getAllCurrentUserGames() {
-    return this.db.collection('GameStatus', (ref) => ref.where('oPlayer', '!=', null, )).get();
+    return this.db.collection('GameStatus',
+      (ref) => ref.where('oPlayer', '!=', null,)).get();
   }
-
 
   startNewGame(gameData): Promise<any> {
     return this.db.collection('GameStatus').add(gameData);
   }
 
-  updateGameStatus(gameId: string, gameStatus: GameStatus, game: GameBoard): Promise<any> {
-    gameStatus.row0 = game.cellValue[0];
-    gameStatus.row1 = game.cellValue[1];
-    gameStatus.row2 = game.cellValue[2];
-
+  updateGameStatus(gameStatus: GameStatus): Promise<any> {
     const gameData = JSON.parse(JSON.stringify(gameStatus));
-    return this.db.doc('GameStatus/' + gameId).update({ ...gameData });
+    return this.db.doc('GameStatus/' + gameStatus.id).update(gameData);
   }
 
   fetchGameStatus(gameId: string): Observable<GameStatus> {
-    return this.db.doc<GameStatus>('GameStatus/' + gameId).valueChanges();
+    return this.db.doc<GameStatus>('GameStatus/' + gameId).valueChanges()
+      .pipe(map((game: GameStatus) => {
+        game.id = gameId;
+        return game;
+      }));
   }
 }

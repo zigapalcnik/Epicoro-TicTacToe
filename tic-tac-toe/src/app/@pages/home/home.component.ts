@@ -5,8 +5,7 @@ import { take } from 'rxjs/operators';
 import { LoggerFactory } from '../../@core/log/logger-factory';
 import { User, UserService } from '../../@core/data/user.service';
 import { Router } from '@angular/router';
-import { GameService, GameStatus } from '../../@core/data/game.service';
-import { GameState, PlayingSign } from '../game/game.component';
+import { GameService, GameState, GameStatus, PlayingSign } from '../../@core/data/game.service';
 
 @Component({
   selector: 'app-home',

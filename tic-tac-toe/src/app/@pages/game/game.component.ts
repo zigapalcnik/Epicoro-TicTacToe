@@ -1,18 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GameBoard, GameService, GameStatus } from '../../@core/data/game.service';
+import { GameBoard, GameService, GameState, GameStatus, PlayingSign } from '../../@core/data/game.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User, UserService } from '../../@core/data/user.service';
-
-export enum PlayingSign {
-  X = 'X',
-  O = 'O',
-}
-
-export enum GameState {
-  ACTIVE,
-  DRAW,
-  WINNER
-}
 
 @Component({
   selector: 'app-game',
@@ -39,13 +28,15 @@ export class GameComponent implements OnInit {
   }
 
   get userOnMove(): string {
-    let username = '';
+    let username = 'Turn: ';
     if (this.gameStatus.playerO && this.gameStatus.playerX) {
       if (this.gameStatus.currentPlayerSign === PlayingSign.X) {
-        username = this.gameStatus.playerX.username;
+        username += this.gameStatus.playerX.username;
       } else {
-        username = this.gameStatus.playerX.username;
+        username += this.gameStatus.playerO.username;
       }
+    } else {
+      username = 'Waiting for player';
     }
     return username;
   }
@@ -72,10 +63,13 @@ export class GameComponent implements OnInit {
   setPlayers(): void {
     if (!this.gameStatus.playerX && (this.gameStatus?.playerO.id !== this.currentPlayer.id)) {
       this.gameStatus.playerX = this.currentPlayer;
-      this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
+      this.updateGameBoard();
+      this.updateGameStatus();
+      this.service.updateGameStatus(this.gameStatus);
     } else if (!this.gameStatus.playerO && (this.gameStatus?.playerX.id !== this.currentPlayer.id)) {
       this.gameStatus.playerO = this.currentPlayer;
-      this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
+      this.updateGameStatus();
+      this.service.updateGameStatus(this.gameStatus);
     }
   }
 
@@ -90,10 +84,16 @@ export class GameComponent implements OnInit {
         } else if (this.game.cellValue[row][col] === '') {
           this.game.cellValue[row][col] = this.gameStatus.currentPlayerSign;
           this.updateGameStatus();
-          this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
+          this.service.updateGameStatus(this.gameStatus);
         }
       }
     }
+  }
+
+  updateGameBoard(): void {
+    this.gameStatus.row0 = this.game.cellValue[0];
+    this.gameStatus.row1 = this.game.cellValue[1];
+    this.gameStatus.row2 = this.game.cellValue[2];
   }
 
   updateGameStatus(): void {
