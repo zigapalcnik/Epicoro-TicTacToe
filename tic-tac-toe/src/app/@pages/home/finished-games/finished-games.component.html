@@ -1,6 +1,6 @@
 <nb-accordion>
   <nb-accordion-item>
-    <nb-accordion-item-header class="justify-content-center">Game finished</nb-accordion-item-header>
+    <nb-accordion-item-header class="justify-content-center">Finished games</nb-accordion-item-header>
     <nb-accordion-item-body>
       <nb-list>
         <nb-list-item *ngFor="let game of games" class="p-1" [routerLink]="'game/' + game.id">

@@ -42,7 +42,7 @@ export class FinishedGamesComponent {
         if (game.currentPlayerSign === PlayingSign.O) {
           return isText ? 'You won :-)': 'p-1 badge badge-success';
         } else {
-          return isText ? 'You lose!': 'p-1 badge badge-danger';
+          return isText ? 'You lost!': 'p-1 badge badge-danger';
         }
       }
     }
