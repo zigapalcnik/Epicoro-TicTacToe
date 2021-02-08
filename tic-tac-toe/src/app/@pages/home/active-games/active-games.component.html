@@ -1,0 +1,15 @@
+<nb-accordion>
+  <nb-accordion-item>
+    <nb-accordion-item-header class="justify-content-center">Active games</nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <nb-list>
+        <nb-list-item *ngFor="let game of games" class="p-1" [routerLink]="'game/' + game.id">
+          <app-game-section [game]="game" [currentUser]="user"></app-game-section>
+        </nb-list-item>
+        <nb-list-item *ngIf="games?.length === 0">
+          There are no Games
+        </nb-list-item>
+      </nb-list>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+</nb-accordion>
