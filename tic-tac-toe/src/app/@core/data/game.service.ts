@@ -71,10 +71,10 @@ export class GameService {
     }));
   }
 
-  //TODO get only games related for that current user.
+  // TODO get only games related for that current user.
   getAllCurrentUserGames() {
     return this.db.collection('GameStatus',
-      (ref) => ref.where('oPlayer', '!=', null,)).get();
+      (ref) => ref.where('oPlayer', '!=', null)).get();
   }
 
   startNewGame(gameData): Promise<any> {

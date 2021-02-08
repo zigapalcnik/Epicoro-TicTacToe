@@ -31,13 +31,13 @@ export class GameComponent implements OnInit {
     if (this.gameStatus.playerO && this.gameStatus.playerX) {
       if (this.gameStatus.currentPlayerSign === PlayingSign.X) {
         if (this.currentPlayer.id === this.gameStatus.playerX.id) {
-          return isText ? 'Your turn': 'badge badge-warning';
+          return isText ? 'Your turn' : 'badge badge-warning';
         } else {
-          return isText ? `${this.gameStatus.playerX.username} turn`: 'badge badge-info';
+          return isText ? `${this.gameStatus.playerX.username} turn` : 'badge badge-info';
         }
       } else {
         if (this.currentPlayer.id === this.gameStatus.playerO.id) {
-          return isText ? 'Your turn': 'badge badge-warning';
+          return isText ? 'Your turn' : 'badge badge-warning';
         } else {
           return isText ? `${this.gameStatus.playerO.username} turn` : 'badge badge-info';
         }
@@ -47,15 +47,15 @@ export class GameComponent implements OnInit {
     }
   }
 
-  getWinnerBadge(isText: boolean = true) {
+  getWinnerBadge(isText: boolean = true): string {
     if (this.gameStatus.currentPlayerSign === PlayingSign.X) {
-      if(this.currentPlayer.id === this.gameStatus.playerX.id) {
+      if (this.currentPlayer.id === this.gameStatus.playerX.id) {
         return isText ? 'You won!' : 'badge badge-success';
       } else {
         return isText ? 'You lost!' : 'badge badge-danger';
       }
     } else {
-      if(this.currentPlayer.id === this.gameStatus.playerO.id) {
+      if (this.currentPlayer.id === this.gameStatus.playerO.id) {
         return isText ? 'You won!' : 'badge badge-success';
       } else {
         return isText ? 'You lost!' : 'badge badge-danger';
@@ -63,14 +63,14 @@ export class GameComponent implements OnInit {
     }
   }
 
-  get activeBadgeClass() {
+  get activeBadgeClass(): string {
     if (this.gameStatus.playerO && this.gameStatus.playerX) {
       if (this.gameStatus.currentPlayerSign === PlayingSign.X) {
         return this.currentPlayer.id === this.gameStatus.playerX.id ?
-          'badge badge-warning': 'badge badge-info';
+          'badge badge-warning' : 'badge badge-info';
       } else {
         return this.currentPlayer.id === this.gameStatus.playerO.id ?
-          'badge badge-warning': 'badge badge-info';
+          'badge badge-warning' : 'badge badge-info';
       }
     } else {
       return '';
@@ -198,9 +198,9 @@ export class GameComponent implements OnInit {
         (game.cellValue[i][1] === game.cellValue[i][2]) &&
         game.cellValue[i][0] !== '') {
         win = true;
-      }
-      // Check for winning on column
-      else if ((game.cellValue[0][i] === game.cellValue[1][i]) &&
+
+        // Check for winning on column
+      } else if ((game.cellValue[0][i] === game.cellValue[1][i]) &&
         (game.cellValue[1][i] === game.cellValue[2][i]) &&
         game.cellValue[0][i] !== '') {
         win = true;

@@ -24,7 +24,7 @@ export class ActiveGamesComponent {
       if (game.currentPlayerSign === PlayingSign.X) {
           return isText ? `Your turn!` : 'p-1 badge badge-warning';
         } else {
-        return isText ? `${ game.playerO.username } turn`: 'p-1 badge badge-info';
+        return isText ? `${ game.playerO.username } turn` : 'p-1 badge badge-info';
       }
     }
     return '';

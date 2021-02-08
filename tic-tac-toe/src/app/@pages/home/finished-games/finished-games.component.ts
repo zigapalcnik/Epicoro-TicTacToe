@@ -22,12 +22,12 @@ export class FinishedGamesComponent {
   getXBadge(game: GameStatus, isText: boolean = true): string {
     if (game.playerX?.id === this.user.id) {
       if (game.gameState === GameState.DRAW) {
-        return isText ? 'Draw': 'p-1 badge badge-warning';
+        return isText ? 'Draw' : 'p-1 badge badge-warning';
       } else {
         if (game.currentPlayerSign === PlayingSign.X) {
-          return isText ? 'You won :-)': 'p-1 badge badge-success';
+          return isText ? 'You won :-)' : 'p-1 badge badge-success';
         } else {
-          return isText ? 'You lost!': 'p-1 badge badge-danger';
+          return isText ? 'You lost!' : 'p-1 badge badge-danger';
         }
       }
     }
@@ -37,12 +37,14 @@ export class FinishedGamesComponent {
   getYBadge(game: GameStatus, isText: boolean = true): string {
     if (game.playerO?.id === this.user.id) {
       if (game.gameState === GameState.DRAW) {
-        return isText ? 'Draw': 'p-1 badge badge-warning';
+        return isText ? 'Draw' : 'p-1 badge badge-warning';
+
       } else {
         if (game.currentPlayerSign === PlayingSign.O) {
-          return isText ? 'You won :-)': 'p-1 badge badge-success';
+          return isText ? 'You won :-)' : 'p-1 badge badge-success';
+
         } else {
-          return isText ? 'You lost!': 'p-1 badge badge-danger';
+          return isText ? 'You lost!' : 'p-1 badge badge-danger';
         }
       }
     }
