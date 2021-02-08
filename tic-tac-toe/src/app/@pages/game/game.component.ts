@@ -1,18 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GameBoard, GameService, GameStatus } from '../../@core/data/game.service';
+import { GameBoard, GameService, GameState, GameStatus, PlayingSign } from '../../@core/data/game.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User, UserService } from '../../@core/data/user.service';
-
-export enum PlayingSign {
-  X = 'X',
-  O = 'O',
-}
-
-export enum GameState {
-  ACTIVE,
-  DRAW,
-  WINNER
-}
 
 @Component({
   selector: 'app-game',
@@ -38,20 +27,62 @@ export class GameComponent implements OnInit {
     }
   }
 
-  get userOnMove(): string {
-    let username = '';
+  getActiveBadge(isText: boolean = true): string {
     if (this.gameStatus.playerO && this.gameStatus.playerX) {
       if (this.gameStatus.currentPlayerSign === PlayingSign.X) {
-        username = this.gameStatus.playerX.username;
+        if (this.currentPlayer.id === this.gameStatus.playerX.id) {
+          return isText ? 'Your turn' : 'badge badge-warning';
+        } else {
+          return isText ? `${this.gameStatus.playerX.username} turn` : 'badge badge-info';
+        }
       } else {
-        username = this.gameStatus.playerX.username;
+        if (this.currentPlayer.id === this.gameStatus.playerO.id) {
+          return isText ? 'Your turn' : 'badge badge-warning';
+        } else {
+          return isText ? `${this.gameStatus.playerO.username} turn` : 'badge badge-info';
+        }
+      }
+    } else {
+      return isText ? 'Waiting for player' : 'badge badge-secondary';
+    }
+  }
+
+  getWinnerBadge(isText: boolean = true): string {
+    if (this.gameStatus.currentPlayerSign === PlayingSign.X) {
+      if (this.currentPlayer.id === this.gameStatus.playerX.id) {
+        return isText ? 'You won!' : 'badge badge-success';
+      } else {
+        return isText ? 'You lost!' : 'badge badge-danger';
+      }
+    } else {
+      if (this.currentPlayer.id === this.gameStatus.playerO.id) {
+        return isText ? 'You won!' : 'badge badge-success';
+      } else {
+        return isText ? 'You lost!' : 'badge badge-danger';
       }
     }
-    return username;
+  }
+
+  get activeBadgeClass(): string {
+    if (this.gameStatus.playerO && this.gameStatus.playerX) {
+      if (this.gameStatus.currentPlayerSign === PlayingSign.X) {
+        return this.currentPlayer.id === this.gameStatus.playerX.id ?
+          'badge badge-warning' : 'badge badge-info';
+      } else {
+        return this.currentPlayer.id === this.gameStatus.playerO.id ?
+          'badge badge-warning' : 'badge badge-info';
+      }
+    } else {
+      return '';
+    }
   }
 
   get opponentUsername(): string {
-    return this.currentPlayer.id === this.gameStatus?.playerX?.id ? this.gameStatus?.playerO?.username : this.gameStatus?.playerX?.username;
+    if (!this.gameStatus?.playerX || !this.gameStatus?.playerO) {
+      return 'Opponent';
+    }
+    return this.currentPlayer.id === this.gameStatus?.playerX?.id ?
+      `${this.gameStatus?.playerO?.username} - O` : `${this.gameStatus?.playerX?.username} - X`;
   }
 
   ngOnInit(): void {
@@ -72,10 +103,13 @@ export class GameComponent implements OnInit {
   setPlayers(): void {
     if (!this.gameStatus.playerX && (this.gameStatus?.playerO.id !== this.currentPlayer.id)) {
       this.gameStatus.playerX = this.currentPlayer;
-      this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
+      this.updateGameBoard();
+      this.updateGameStatus();
+      this.service.updateGameStatus(this.gameStatus);
     } else if (!this.gameStatus.playerO && (this.gameStatus?.playerX.id !== this.currentPlayer.id)) {
       this.gameStatus.playerO = this.currentPlayer;
-      this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
+      this.updateGameStatus();
+      this.service.updateGameStatus(this.gameStatus);
     }
   }
 
@@ -90,10 +124,16 @@ export class GameComponent implements OnInit {
         } else if (this.game.cellValue[row][col] === '') {
           this.game.cellValue[row][col] = this.gameStatus.currentPlayerSign;
           this.updateGameStatus();
-          this.service.updateGameStatus(this.gameId, this.gameStatus, this.game);
+          this.service.updateGameStatus(this.gameStatus);
         }
       }
     }
+  }
+
+  updateGameBoard(): void {
+    this.gameStatus.row0 = this.game.cellValue[0];
+    this.gameStatus.row1 = this.game.cellValue[1];
+    this.gameStatus.row2 = this.game.cellValue[2];
   }
 
   updateGameStatus(): void {
@@ -158,9 +198,9 @@ export class GameComponent implements OnInit {
         (game.cellValue[i][1] === game.cellValue[i][2]) &&
         game.cellValue[i][0] !== '') {
         win = true;
-      }
-      // Check for winning on column
-      else if ((game.cellValue[0][i] === game.cellValue[1][i]) &&
+
+        // Check for winning on column
+      } else if ((game.cellValue[0][i] === game.cellValue[1][i]) &&
         (game.cellValue[1][i] === game.cellValue[2][i]) &&
         game.cellValue[0][i] !== '') {
         win = true;

@@ -14,7 +14,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +26,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     NbEvaIconsModule,
     PagesModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

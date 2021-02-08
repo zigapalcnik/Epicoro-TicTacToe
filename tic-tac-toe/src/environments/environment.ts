@@ -10,7 +10,7 @@ export const environment = {
     projectId: 'tictactoe-49a3b',
     storageBucket: 'tictactoe-49a3b.appspot.com',
     messagingSenderId: '400343774124',
-    appId: '1:400343774124:web:a3e625b58d185b0c910009'
+    appId: '1:400343774124:web:a3e625b58d185b0c910009',
   },
 };
 
