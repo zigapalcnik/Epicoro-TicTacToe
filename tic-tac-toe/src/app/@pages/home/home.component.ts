@@ -43,14 +43,14 @@ export class HomeComponent implements OnInit {
   get activeGames(): GameStatus[] {
     return this.games?.filter(g => {
       return g.playerX && g.playerO && g.gameState === GameState.ACTIVE &&
-        (g.playerO?.id === this.user.id || g.playerX?.id === this.user.id);
+        (g.playerO?.id === this.user?.id || g.playerX?.id === this.user?.id);
     });
   }
 
   get finishedGames(): GameStatus[] {
     return this.games?.filter(g => {
       return g.gameState !== GameState.ACTIVE &&
-        (g.playerO?.id === this.user.id || g.playerX?.id === this.user.id);
+        (g.playerO?.id === this.user?.id || g.playerX?.id === this.user?.id);
     });
   }
 
@@ -92,9 +92,9 @@ export class HomeComponent implements OnInit {
 
   isUserAlreadyWaitingForGame(): boolean {
     return this.games.filter(g => {
-      if (this.user.id === g.playerX?.id && !g.playerO) {
+      if (this.user?.id === g.playerX?.id && !g.playerO) {
         return true;
-      } else if (this.user.id === g.playerO?.id && !g.playerX) {
+      } else if (this.user?.id === g.playerO?.id && !g.playerX) {
         return true;
       }
       return false;

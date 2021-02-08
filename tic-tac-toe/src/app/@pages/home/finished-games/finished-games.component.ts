@@ -20,7 +20,7 @@ export class FinishedGamesComponent {
   }
 
   getXBadge(game: GameStatus, isText: boolean = true): string {
-    if (game.playerX?.id === this.user.id) {
+    if (game.playerX?.id === this.user?.id) {
       if (game.gameState === GameState.DRAW) {
         return isText ? 'Draw' : 'p-1 badge badge-warning';
       } else {
@@ -35,7 +35,7 @@ export class FinishedGamesComponent {
   }
 
   getYBadge(game: GameStatus, isText: boolean = true): string {
-    if (game.playerO?.id === this.user.id) {
+    if (game.playerO?.id === this.user?.id) {
       if (game.gameState === GameState.DRAW) {
         return isText ? 'Draw' : 'p-1 badge badge-warning';
 

@@ -20,7 +20,7 @@ export class ActiveGamesComponent {
   }
 
   getXBadge(game: GameStatus, isText: boolean = true): string {
-    if (game.playerX?.id === this.user.id) {
+    if (game.playerX?.id === this.user?.id) {
       if (game.currentPlayerSign === PlayingSign.X) {
           return isText ? `Your turn!` : 'p-1 badge badge-warning';
         } else {
@@ -31,7 +31,7 @@ export class ActiveGamesComponent {
   }
 
   getOBadge(game: GameStatus, isText: boolean = true): string {
-    if (game.playerO?.id === this.user.id) {
+    if (game.playerO?.id === this.user?.id) {
       if (game.currentPlayerSign === PlayingSign.O) {
         return isText ? `Your turn!` : 'p-1 badge badge-warning';
       } else {
