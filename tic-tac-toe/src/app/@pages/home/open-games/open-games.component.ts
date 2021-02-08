@@ -8,6 +8,6 @@ import { User } from '../../../@core/data/user.service';
   styleUrls: ['./open-games.component.scss']
 })
 export class OpenGamesComponent {
-  @Input() openGames: GameStatus[];
+  @Input() games: GameStatus[];
   @Input() user: User;
 }
