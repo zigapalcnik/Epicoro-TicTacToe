@@ -4,6 +4,9 @@ import { GameComponent } from '../game/game.component';
 import { GameSectionComponent } from './game-section/game-section.component';
 import { GameAccordionComponent } from './game-accordion/game-accordion.component';
 import { ThemeModule } from '../../@theme/theme.module';
+import { OpenGamesComponent } from './open-games/open-games.component';
+import { ActiveGamesComponent } from './active-games/active-games.component';
+import { FinishedGamesComponent } from './finished-games/finished-games.component';
 
 @NgModule({
   imports: [
@@ -13,7 +16,10 @@ import { ThemeModule } from '../../@theme/theme.module';
     HomeComponent,
     GameComponent,
     GameSectionComponent,
-    GameAccordionComponent
+    GameAccordionComponent,
+    OpenGamesComponent,
+    ActiveGamesComponent,
+    FinishedGamesComponent
   ],
 })
 export class HomeModule {
