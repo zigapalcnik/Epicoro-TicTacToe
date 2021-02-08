@@ -1,5 +1,11 @@
 #### 1.0.0 (2021-02-08)
 
+##### Bug Fixes
+
+* **logger:**  added log variables to environment file (7ca64d68)
+
+#### 1.0.0 (2021-02-08)
+
 ##### Chores
 
 *  first version (c7334670)
