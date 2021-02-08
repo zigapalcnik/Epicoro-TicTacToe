@@ -2,20 +2,21 @@
   <div class="col-md-2 col-sm-1"></div>
   <div class="col-md-8 col-sm-10">
     <nb-card>
-      <nb-card-header>
+      <nb-card-header class="d-flex justify-content-between">
+        <nb-user [name]="currentPlayer?.username"></nb-user>
         <button nbButton routerLink="">Leave Game</button>
       </nb-card-header>
       <nb-card-body>
         <div class="d-flex justify-content-center">
-          <h5 *ngIf="gameStatus?.gameState === gameState.WINNER">Player {{winner}} has won the game</h5>
-          <h5 *ngIf="gameStatus?.gameState === gameState.ACTIVE">Turn: {{userOnMove}}</h5>
-          <h5 *ngIf="gameStatus?.gameState === gameState.DRAW">Game draw</h5>
+          <span *ngIf="gameStatus?.gameState === gameState.WINNER" [class]="getWinnerBadge(false)">{{getWinnerBadge()}}</span>
+          <span *ngIf="gameStatus?.gameState === gameState.ACTIVE" [class]="getActiveBadge(false)">{{getActiveBadge()}}</span>
+          <span *ngIf="gameStatus?.gameState === gameState.DRAW" class="badge badge-warning">Game draw</span>
         </div>
         <div class="d-flex justify-content-center">
           <div class="game-board-container">
             <div class="game-board">
               <div *ngFor="let row of gameBoard">
-                <button *ngFor="let col of gameBoard" class="btn btn-light sqaure"
+                <button *ngFor="let col of gameBoard" class="btn btn-light square"
                         (click)="setCellValue(row,col)">{{game.cellValue[row][col]}}</button>
               </div>
             </div>
@@ -23,9 +24,9 @@
         </div>
       </nb-card-body>
       <nb-card-footer>
-        <div class="d-flex justify-content-between">
-          <nb-user [name]="currentPlayer.username"></nb-user>
-          <nb-user *ngIf="game" [name]="opponentUsername"></nb-user>
+        <div class="d-flex justify-content-between align-items-center">
+          <h6>{{currentPlayer.id === gameStatus?.playerX?.id ? currentPlayer.username + ' - X' : currentPlayer.username + ' - O'}}</h6>
+          <h6>{{opponentUsername}}</h6>
         </div>
       </nb-card-footer>
     </nb-card>

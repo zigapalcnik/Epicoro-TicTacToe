@@ -27,22 +27,62 @@ export class GameComponent implements OnInit {
     }
   }
 
-  get userOnMove(): string {
-    let username = 'Turn: ';
+  getActiveBadge(isText: boolean = true): string {
     if (this.gameStatus.playerO && this.gameStatus.playerX) {
       if (this.gameStatus.currentPlayerSign === PlayingSign.X) {
-        username += this.gameStatus.playerX.username;
+        if (this.currentPlayer.id === this.gameStatus.playerX.id) {
+          return isText ? 'Your turn': 'badge badge-warning';
+        } else {
+          return isText ? `${this.gameStatus.playerX.username} turn`: 'badge badge-info';
+        }
       } else {
-        username += this.gameStatus.playerO.username;
+        if (this.currentPlayer.id === this.gameStatus.playerO.id) {
+          return isText ? 'Your turn': 'badge badge-warning';
+        } else {
+          return isText ? `${this.gameStatus.playerO.username} turn` : 'badge badge-info';
+        }
       }
     } else {
-      username = 'Waiting for player';
+      return isText ? 'Waiting for player' : 'badge badge-secondary';
     }
-    return username;
+  }
+
+  getWinnerBadge(isText: boolean = true) {
+    if (this.gameStatus.currentPlayerSign === PlayingSign.X) {
+      if(this.currentPlayer.id === this.gameStatus.playerX.id) {
+        return isText ? 'You won!' : 'badge badge-success';
+      } else {
+        return isText ? 'You lost!' : 'badge badge-danger';
+      }
+    } else {
+      if(this.currentPlayer.id === this.gameStatus.playerO.id) {
+        return isText ? 'You won!' : 'badge badge-success';
+      } else {
+        return isText ? 'You lost!' : 'badge badge-danger';
+      }
+    }
+  }
+
+  get activeBadgeClass() {
+    if (this.gameStatus.playerO && this.gameStatus.playerX) {
+      if (this.gameStatus.currentPlayerSign === PlayingSign.X) {
+        return this.currentPlayer.id === this.gameStatus.playerX.id ?
+          'badge badge-warning': 'badge badge-info';
+      } else {
+        return this.currentPlayer.id === this.gameStatus.playerO.id ?
+          'badge badge-warning': 'badge badge-info';
+      }
+    } else {
+      return '';
+    }
   }
 
   get opponentUsername(): string {
-    return this.currentPlayer.id === this.gameStatus?.playerX?.id ? this.gameStatus?.playerO?.username : this.gameStatus?.playerX?.username;
+    if (!this.gameStatus?.playerX || !this.gameStatus?.playerO) {
+      return 'Opponent';
+    }
+    return this.currentPlayer.id === this.gameStatus?.playerX?.id ?
+      `${this.gameStatus?.playerO?.username} - O` : `${this.gameStatus?.playerX?.username} - X`;
   }
 
   ngOnInit(): void {

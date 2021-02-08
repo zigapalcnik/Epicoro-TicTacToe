@@ -1,27 +1,31 @@
-.game-board-container{
+.game-board-container {
   margin: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.game-board{
+.game-board {
   display: flex;
   justify-content: space-between;
-  background-color:#929fad;
-  width:250px;
+  background-color: #929fad;
+  width: 250px;
   height: 250px;
   border-radius: 5px;
   padding: 5px;
 }
 
-.sqaure{
-  width:70px;
-  height:70px;
+.square {
+  width: 70px;
+  height: 70px;
   margin: 5px;
   border-radius: 10px;
   text-align: center;
   font-weight: bold;
   font-size: 35px;
   color: #5c513e;
+}
+
+span {
+  font-size: large;
 }
